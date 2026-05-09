@@ -134,7 +134,7 @@ export const useRecruitingStore = create<RecruitingState>()(
       openDrawer: (drawerCandidateId) => set({ drawerCandidateId }),
     }),
     {
-      name: 'recruiting-dashboard:v1',
+      name: 'recruiting-dashboard:v2',
       partialize: (state) => ({ candidates: state.candidates, activities: state.activities }),
       merge: (persisted, current) => {
         const patch = persisted as Partial<Pick<RecruitingState, 'candidates' | 'activities'>>;

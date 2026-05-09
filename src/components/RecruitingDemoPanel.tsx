@@ -42,7 +42,7 @@ export function RecruitingDemoPanel() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1400px] overflow-hidden rounded-3xl border border-white/12 bg-[#090b10] shadow-[0_30px_120px_rgba(0,0,0,0.55)]">
+      <div className="mx-auto max-w-[1400px] rounded-3xl border border-white/12 bg-[#090b10] shadow-[0_30px_120px_rgba(0,0,0,0.55)]">
         <div className="border-b border-white/10 px-4 py-3 text-[11px] text-neutral-500 sm:px-6">
           <span className="text-neutral-400">Sandbox URL · </span>
           mirrors production layout after white-label pass

@@ -133,9 +133,12 @@ export function PipelineBoard() {
         )}
       </div>
 
+      {/* overflow-x-auto makes board horizontally scrollable on mobile;
+          minmax(210px,1fr) keeps each column readable at any viewport width */}
+      <div className="overflow-x-auto">
       <div
         className="grid gap-2 pb-2"
-        style={{ gridTemplateColumns: `repeat(${PIPELINE_STAGES.length}, minmax(0, 1fr))` }}
+        style={{ gridTemplateColumns: `repeat(${PIPELINE_STAGES.length}, minmax(210px, 1fr))` }}
       >
         {PIPELINE_STAGES.map((stage) => {
           const list = byStage.get(stage.id) ?? [];
@@ -153,6 +156,7 @@ export function PipelineBoard() {
             />
           );
         })}
+      </div>
       </div>
       <DragOverlayCmp modifiers={[snapCenterToCursor]}>
         {activeCandidate ? (

@@ -5,23 +5,46 @@ function iso(daysAgo: number) {
   return new Date(Date.now() - daysAgo * 86400000).toISOString();
 }
 
+const STAGE_ORDER: StageId[] = ['sourced', 'screened', 'phone', 'onsite', 'offer', 'hired'];
+
+// Typical days a candidate spends in each stage (used to populate demo history)
+const STAGE_AVG_DAYS: Record<StageId, number> = {
+  sourced:  4,
+  screened: 5,
+  phone:    3,
+  onsite:   4,
+  offer:    2,
+  hired:    0,
+};
+
+function spellTotalsForCurrentStage(stageId: StageId): Candidate['spellTotals'] {
+  const currentIdx = STAGE_ORDER.indexOf(stageId);
+  const totals: Candidate['spellTotals'] = {};
+  for (let i = 0; i < currentIdx; i++) {
+    const s = STAGE_ORDER[i];
+    const days = STAGE_AVG_DAYS[s] + (i % 2 === 0 ? 1 : -1);
+    totals[s] = { completedMs: days * 86_400_000, completedSpells: 1 };
+  }
+  return totals;
+}
+
 export function seedCandidates(): Candidate[] {
   const staged: Pick<Candidate, 'name' | 'email' | 'position' | 'stageId'>[] = [
-    { name: 'James Hartley', email: 'j.hartley@example.com', position: 'Backend', stageId: 'sourced' },
-    { name: 'Megan Torres', email: 'm.torres@example.com', position: 'Frontend', stageId: 'sourced' },
-    { name: 'Daniel Kovacs', email: 'd.kovacs@example.com', position: 'QA', stageId: 'screened' },
-    { name: 'Elena Marsh', email: 'e.marsh@example.com', position: 'Product', stageId: 'screened' },
-    { name: 'Ian Nicholson', email: 'i.nicholson@example.com', position: 'Backend', stageId: 'screened' },
-    { name: 'Sophia Lee', email: 'sophia.lee@example.com', position: 'Data', stageId: 'phone' },
-    { name: 'Aaron Brown', email: 'a.brown@example.com', position: 'DevOps', stageId: 'phone' },
-    { name: 'Camila Reyes', email: 'c.reyes@example.com', position: 'UX', stageId: 'phone' },
-    { name: 'Nathan Oliver', email: 'n.oliver@example.com', position: 'Backend', stageId: 'onsite' },
-    { name: 'Paige Mitchell', email: 'p.mitchell@example.com', position: 'Marketing', stageId: 'offer' },
-    { name: 'Owen Kane', email: 'o.kane@example.com', position: 'Finance', stageId: 'offer' },
-    { name: 'Julie Kim', email: 'j.kim@example.com', position: 'Frontend', stageId: 'hired' },
-    { name: 'Victor Almeida', email: 'v.almeida@example.com', position: 'Mobile', stageId: 'onsite' },
-    { name: 'Rachel Hassan', email: 'r.hassan@example.com', position: 'HR BP', stageId: 'screened' },
-    { name: 'Tyler Davidson', email: 't.davidson@example.com', position: 'Analytics', stageId: 'sourced' },
+    { name: 'James Hartley',   email: 'j.hartley@example.com',   position: 'Backend',   stageId: 'sourced'  },
+    { name: 'Megan Torres',    email: 'm.torres@example.com',    position: 'Frontend',  stageId: 'sourced'  },
+    { name: 'Daniel Kovacs',   email: 'd.kovacs@example.com',    position: 'QA',        stageId: 'screened' },
+    { name: 'Elena Marsh',     email: 'e.marsh@example.com',     position: 'Product',   stageId: 'screened' },
+    { name: 'Ian Nicholson',   email: 'i.nicholson@example.com', position: 'Backend',   stageId: 'screened' },
+    { name: 'Sophia Lee',      email: 'sophia.lee@example.com',  position: 'Data',      stageId: 'phone'    },
+    { name: 'Aaron Brown',     email: 'a.brown@example.com',     position: 'DevOps',    stageId: 'phone'    },
+    { name: 'Camila Reyes',    email: 'c.reyes@example.com',     position: 'UX',        stageId: 'phone'    },
+    { name: 'Nathan Oliver',   email: 'n.oliver@example.com',    position: 'Backend',   stageId: 'onsite'   },
+    { name: 'Paige Mitchell',  email: 'p.mitchell@example.com',  position: 'Marketing', stageId: 'offer'    },
+    { name: 'Owen Kane',       email: 'o.kane@example.com',      position: 'Finance',   stageId: 'offer'    },
+    { name: 'Julie Kim',       email: 'j.kim@example.com',       position: 'Frontend',  stageId: 'hired'    },
+    { name: 'Victor Almeida',  email: 'v.almeida@example.com',   position: 'Mobile',    stageId: 'onsite'   },
+    { name: 'Rachel Hassan',   email: 'r.hassan@example.com',    position: 'HR BP',     stageId: 'screened' },
+    { name: 'Tyler Davidson',  email: 't.davidson@example.com',  position: 'Analytics', stageId: 'sourced'  },
   ];
 
   let i = 0;
@@ -41,7 +64,7 @@ export function seedCandidates(): Candidate[] {
       enteredStageAt: iso(daysInStage),
       tags: [],
       notes: '',
-      spellTotals: {},
+      spellTotals: spellTotalsForCurrentStage(row.stageId),
     };
   });
 }
