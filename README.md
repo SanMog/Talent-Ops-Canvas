@@ -88,5 +88,5 @@ Upload the `dist/` folder to [Netlify](https://netlify.com), [Vercel](https://ve
 ---
 
 <p align="center">
-  Architected for Reliability by <strong>Alexander Mogilin</strong>
+  Architected for Reliability by <strong>@SanMog</strong>
 </p>
