@@ -42,13 +42,15 @@ export function ActivityFeed() {
         {items.map((a) => (
           <div
             key={a.id}
-            className={`flex gap-3 rounded-lg border border-white/10 bg-black/35 px-3 py-2 leading-snug`}
+            className="flex gap-2 rounded-lg border border-white/10 bg-black/35 px-3 py-2 leading-snug"
           >
-            <div className={`w-28 shrink-0 rounded-md border px-2 py-1 text-[11px] ${kindTone[a.kind]}`}>
+            <div className={`mt-0.5 shrink-0 self-start rounded-md border px-2 py-0.5 text-[10px] font-medium ${kindTone[a.kind]}`}>
               {a.kind.toUpperCase()}
             </div>
-            <div className="flex-1 text-[13px] text-neutral-200">{a.message}</div>
-            <div className="shrink-0 text-[11px] text-neutral-600">{fmtTime(a.at)}</div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[13px] text-neutral-200">{a.message}</div>
+              <div className="mt-1 text-[11px] text-neutral-600">{fmtTime(a.at)}</div>
+            </div>
           </div>
         ))}
       </div>

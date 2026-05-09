@@ -28,7 +28,7 @@ export function SiteFooter() {
       <div className="mx-auto mt-8 max-w-6xl border-t border-white/5 pt-6">
         <p className="text-[11px] uppercase tracking-[0.28em] text-neutral-600">
           Architected for Reliability by{' '}
-          <span className="text-emerald-500/70">Alexander Mogilin</span>
+          <span className="text-emerald-500/70">@SanMog</span>
         </p>
       </div>
     </footer>

@@ -8,7 +8,7 @@ import { RecruitingDemoPanel } from './components/RecruitingDemoPanel';
 
 export default function App() {
   return (
-    <div className="relative flex min-h-full flex-col bg-[#090b10]">
+    <div className="relative flex min-h-full flex-col overflow-x-clip bg-[#090b10]">
       <TopNav />
       <LandingHero />
       <ProductSections />
