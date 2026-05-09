@@ -77,8 +77,8 @@ export function AnalyticsCharts() {
   }, [candidates]);
 
   return (
-    <div className="grid gap-3 lg:grid-cols-2">
-      <div className="flex min-h-[320px] flex-col rounded-xl border border-white/10 bg-[#12151d] p-4">
+    <div className="grid min-w-0 gap-3 lg:grid-cols-2">
+      <div className="flex min-h-[320px] min-w-0 flex-col overflow-hidden rounded-xl border border-white/10 bg-[#12151d] p-4">
         <div className="mb-4 flex items-center justify-between">
           <div>
             <div className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">Funnel</div>
@@ -88,19 +88,19 @@ export function AnalyticsCharts() {
             live
           </span>
         </div>
-        <div className="relative flex-1 min-h-[240px]">
+        <div className="relative min-h-[240px] flex-1">
           <Bar data={funnelData} options={{ ...chartOptions, plugins: { legend: { display: false } } }} />
         </div>
       </div>
 
-      <div className="flex min-h-[320px] flex-col rounded-xl border border-white/10 bg-[#12151d] p-4">
+      <div className="flex min-h-[320px] min-w-0 flex-col overflow-hidden rounded-xl border border-white/10 bg-[#12151d] p-4">
         <div className="mb-4">
           <div className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">Time in stage</div>
           <div className="text-sm text-neutral-300">
             Avg. over completed spells (after card moves)
           </div>
         </div>
-        <div className="relative flex-1 min-h-[240px]">
+        <div className="relative min-h-[240px] flex-1">
           <Bar data={dwellData} options={chartOptions} />
         </div>
       </div>
